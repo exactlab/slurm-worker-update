@@ -2,7 +2,6 @@
 
 # zero interaction requested
 export DEBIAN_FRONTEND=noninteractive
-
 # do not bother about details, be critical
 export DEBIAN_PRIORITY=critical
 
@@ -11,6 +10,13 @@ if test -f "/etc/needrestart/needrestart.conf"
 then
   export NEEDRESTART_MODE=a
 fi
+
+# edit here in case you want to be sure not to update Slurm packages
+# (unhold to release)
+for pkg in "slurmd slurm-wlm"
+do
+  apt-mark hold $pkg
+done
 
 # options for apt-get
 # do not ask (-y)
@@ -30,3 +36,5 @@ sudo -E apt-get $APT_GET_OPTIONS update
 sudo -E apt-get $APT_GET_OPTIONS -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade
 # remove unused stuff after
 sudo -E apt-get $APT_GET_OPTIONS autoclean
+
+# EOF
