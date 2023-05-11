@@ -36,7 +36,7 @@ done
 
 The node will update itself thanks to the update.sh Slurm job script and, once idle, will run a reboot as soon as possible. After reboot, will come back in DOWN state.
 
-# Check to run on the updated node
+# Checks to run on the updated node
 
 You may want to check on the newly updated node:
 
