@@ -1,6 +1,6 @@
 # Update OS of Ubuntu Slurm Worker Nodes
 
-1. Submit the update.sh script to Slurm on selected worker nodes
+1. Submit the _slurm_update_nodes.sh_ script to Slurm on selected worker nodes
 2. Immediately perform _scontrol reboot_ on selected node
  
 _scontrol reboot ASAP nextstate=DOWN_ will reboot the selected nodes when they become idle.
@@ -11,9 +11,7 @@ As per documentation in https://slurm.schedmd.com/scontrol.html,
 
 _scontrol reboot_ needs the _RebootProgram_ to be properly configured in slurm.conf (https://slurm.schedmd.com/slurm.conf.html). 
 
-
 You may want to use the following example.
-
 
 ```console
 LIST_NODES=(node001 node002 node003)
@@ -21,6 +19,8 @@ for node in ${LIST_NODES[@]}
 do
   echo "Running updates on node $node"
   sbatch --mem=0 --exclusive --nodelist=$node -J "Updating OS" slurm_update_nodes.sh
+  [[ $? != 0 ]] && break
+  sleep 5
   [[ $? == 0 ]] && scontrol reboot ASAP nextstate=DOWN $node
   [[ $? == 0 ]] && echo -e "Node $node has been marked for reboot ASAP\n"
 done
