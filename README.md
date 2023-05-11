@@ -9,6 +9,7 @@ As per documentation in https://slurm.schedmd.com/scontrol.html,
 
 >The "ASAP" option adds the "DRAIN" flag to each node's state, preventing additional jobs from running on the node so it can be rebooted and returned to service "As Soon As Possible" (i.e. ASAP). "ASAP" will also set the node reason to "Reboot ASAP" if the "reason" option isn't specified. If the "nextstate" option is specified as "DOWN", then the node will remain in a down state after rebooting. 
 
+_scontrol reboot_ needs the _RebootProgram_ to be properly configured in slurm.conf (https://slurm.schedmd.com/slurm.conf.html). 
 
 
 You may want to use the following example.
