@@ -21,7 +21,7 @@ do
   echo "Running updates on node $node"
   sbatch --mem=0 --exclusive --nodelist=$node -J "Updating OS" update.sh
   [[ $? == 0 ]] && scontrol reboot ASAP nextstate=DOWN $node
-  
+  [[ $? == 0 ]] && echo -e "Node $node has been marked for reboot ASAP\n"
 done
 ```
 
